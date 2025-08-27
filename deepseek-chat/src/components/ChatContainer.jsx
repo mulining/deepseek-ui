@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import ApiKeyModal from './ApiKeyModal';
+import { ApiService } from '../services/deepseekApi';
 
 const ChatContainer = () => {
   const [messages, setMessages] = useState([
@@ -15,6 +16,18 @@ const ChatContainer = () => {
   const [apiKey, setApiKey] = useState('');
   const [showApiKeyModal, setShowApiKeyModal] = useState(true);
 
+  useEffect(() => {
+    // 页面加载时尝试从localStorage读取apiKey
+    const cachedKey = localStorage.getItem('deepseek_api_key');
+    if (cachedKey) {
+      setApiKey(cachedKey);
+      ApiService.setToken(cachedKey); // 自动设置令牌
+      setShowApiKeyModal(false);
+    } else {
+      setShowApiKeyModal(true);
+    }
+  }, []);
+
   const handleSendMessage = (text) => {
     const newMessage = {
       id: Date.now(),
@@ -25,8 +38,10 @@ const ChatContainer = () => {
     setMessages(prev => [...prev, newMessage]);
   };
 
-  const handleApiKeySubmit = (key) => {
+const handleApiKeySubmit = (key) => {
     setApiKey(key);
+    localStorage.setItem('deepseek_api_key', key); // 持久化令牌
+    ApiService.setToken(key); // 设置全局令牌
     setShowApiKeyModal(false);
   };
 
