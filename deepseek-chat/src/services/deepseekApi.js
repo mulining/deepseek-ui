@@ -22,6 +22,55 @@ export class ApiService {
     return response.data;
   }
 
+  static async chatWithModelSSE({ model, messages, temperature = 0.7, onMessage }) {
+    const url = `${this.BASE_URL}/chat/completions`;
+    const token = axios.defaults.headers.common["Authorization"];
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature,
+        stream: true
+      })
+    });
+    if (!response.ok) {
+      throw response 
+    }
+
+    if (!response.body) throw new Error('SSE not supported');
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      // 按行分割处理 SSE 数据
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // 保留未处理的部分
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          const data = line.replace('data:', '').trim();
+          if (data === '[DONE]') return;
+          try {
+            const json = JSON.parse(data);
+            onMessage && onMessage(json);
+          } catch (err) {
+            // Optionally log or handle the error
+            console.error('JSON parse error in SSE:', err);
+          }
+        }
+      }
+    }
+  }
+
   // 获取模型列表
   static async fetchModels() {
     const response = await axios.get(`${this.BASE_URL}/models`);

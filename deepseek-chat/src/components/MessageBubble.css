@@ -1,0 +1,113 @@
+/* 推荐添加到 App.css 或 src/styles/message.css */
+.message {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 14px;
+}
+
+.user-message {
+  /* flex-direction: row-reverse; */
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.ai-message {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin: 0 10px;
+  object-fit: cover;
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.7;
+  word-break: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: #e6f7ff;
+  color: #222;
+  text-align: left;
+}
+
+.user-message .message-content {
+  margin-left: 0;
+  margin-right: 10px;
+  background: #4f9cff;
+  color: #fff;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 18px;
+  align-self: flex-end;
+}
+
+.ai-message .message-content {
+  background: #f5f5f5;
+  color: #222;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 18px;
+}
+
+/* 推荐添加到 MessageBubble.css */
+.message-content.error {
+  color: #d32f2f;
+  background: #fff3f3;
+  border: 1px solid #ffd6d6;
+}
+
+.retry-btn {
+  margin-left: 12px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: none;
+  background: #4f9cff;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.message-content.reasoning {
+  background: #fffbe6;
+  color: #8d6e00;
+  border: 1px dashed #ffe58f;
+}
+
+.reasoning-bubble .message-content.reasoning {
+  background: #fffbe6;
+  color: #8d6e00;
+  border: 1px dashed #ffe58f;
+}
+
+.reasoning-label {
+  font-size: 13px;
+  color: #bfa100;
+  margin-bottom: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fold-btn {
+  background: none;
+  border: none;
+  color: #4f9cff;
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: 8px;
+  padding: 0;
+}
+
+.ellipsis {
+  color: #bfa100;
+  font-weight: bold;
+  margin-left: 4px;
+}

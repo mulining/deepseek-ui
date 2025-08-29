@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
+import './ApiKeyModal.css';
 
 const ApiKeyModal = ({ isOpen, onSubmit }) => {
-  const [apiKey, setApiKey] = useState('');
+  const [input, setInput] = useState('');
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (apiKey.trim()) {
-      onSubmit(apiKey);
+    if (input.trim()) {
+      onSubmit(input.trim());
+      setInput('');
     }
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>设置API密钥</h2>
-        <p>请输入您的DeepSeek API密钥以开始使用</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="password"
-            placeholder="输入DeepSeek API密钥"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-          />
-          <button type="submit">确认</button>
-        </form>
-      </div>
+    <div className="api-key-modal-mask">
+      <form className="api-key-modal-card" onSubmit={handleSubmit}>
+        <h2>请输入 DeepSeek API Key</h2>
+        <input
+          type="text"
+          placeholder="sk-xxxxxx"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          autoFocus
+        />
+        <button type="submit">保存</button>
+      </form>
     </div>
   );
 };

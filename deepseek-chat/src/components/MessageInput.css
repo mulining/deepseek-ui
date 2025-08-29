@@ -1,0 +1,68 @@
+/* 推荐添加到 App.css 或 src/components/MessageInput.css */
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.input-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid #d0d7de;
+  background: #f7f8fa;
+  color: #222;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.action-btn.active {
+  background: #4f9cff;
+  color: #fff;
+  border-color: #4f9cff;
+}
+
+.action-btn:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #d0d7de;
+  font-size: 15px;
+  outline: none;
+  background: #f7f8fa;
+  transition: border 0.2s;
+}
+
+.chat-input:focus {
+  border-color: #4f9cff;
+}
+
+.chat-send-btn {
+  padding: 8px 22px;
+  border-radius: 20px;
+  border: none;
+  background: #4f9cff;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-width: 80px;
+}
+
+.chat-send-btn:disabled {
+  background: #b3c6e6;
+  cursor: not-allowed;
+}
